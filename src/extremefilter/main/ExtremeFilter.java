@@ -81,6 +81,7 @@ public class ExtremeFilter extends JavaPlugin{
         getConfig().set("General.Messages.Filter.Port", 3719);
         getConfig().set("General.Messages.Filter.LookforTraffic", false);
         getConfig().set("General.Messages.Filter.MaxTraffic", 500);
+        getConfig().set("General.Messages.Filter.LocalServer.Port", 9892);
         saveConfig();
 
     }

@@ -1,6 +1,7 @@
 package extremefilter.objects;
 
 import com.google.common.io.CountingOutputStream;
+import extremefilter.handler.ResolvServer;
 import extremefilter.main.ExtremeFilter;
 import org.apache.commons.io.IOUtils;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -29,10 +30,13 @@ public class WordFilter {
 
     }
 
+    private String messageCache = "";
+
     public String testMessage(String message){
 
         String split[] = message.split("(?!^)");
 
+        String doneMessage = "";
 
 
 
@@ -42,20 +46,32 @@ public class WordFilter {
 
         }
 
-        if(ExtremeFilter.getInstance().getConfig().getBoolean("General.Messages.Filter.SecondServer")){
+        /*
+        getConfig().set("General.Messages.Filter.SecondServer", false);
+        getConfig().set("General.Messages.Filter.Hostname", "Second Server ip");
+        getConfig().set("General.Messages.Filter.Port", 3719);
+        getConfig().set("General.Messages.Filter.LookforTraffic", false);
+        getConfig().set("General.Messages.Filter.MaxTraffic", 500);
+        */
+        if(ExtremeFilter.getInstance().getConfig().getBoolean("General.Messages.Filter.SecondServer") && traffic <= ExtremeFilter.getInstance().getConfig().getLong("General.Messages.Filter.LookforTraffic")){
+
 
             new BukkitRunnable(){
 
                 @Override
                 public void run() {
 
+
                     Socket client;
+                    ResolvServer server;
                     try {
                         //Creating Clientside Socket
-                        client = new Socket("localhost", 1337); // Change 'localhost' to your IP and the Port to your Receiver port.
+                        client = new Socket(ExtremeFilter.getInstance().getConfig().getString("General.Messages.Filter.Hostname"), ExtremeFilter.getInstance().getConfig().getInt("General.Messages.Filter.Port")); // Change 'localhost' to your IP and the Port to your Receiver port.
                         CountingOutputStream cos = new CountingOutputStream(client.getOutputStream());
                         OutputStream out = client.getOutputStream();
                         PrintWriter writer = new PrintWriter(out);
+
+                        server = new ResolvServer();
 
                         //Writing a String to the Server via a PrintWriter
                         writer.write("[PROCESS] " + message);
@@ -67,6 +83,19 @@ public class WordFilter {
                         traffic += cos.getCount() / 1000000;
                         client.close();
 
+                        //Done with Sending
+
+                        while(server.getMessage().isEmpty()){
+
+                            if(server.getMessage() != ""){
+
+                                messageCache = server.getMessage();
+
+                            }
+
+                        }
+
+
                     } catch (UnknownHostException e) {
                         System.out.println("[Error] Failed to connect to the remote Server.");
                     } catch (IOException e) {
@@ -76,9 +105,11 @@ public class WordFilter {
 
             }.runTaskLaterAsynchronously(ExtremeFilter.getInstance(), 0);
 
+            doneMessage = messageCache;
+
         }
 
-        return message;
+        return doneMessage;
 
     }
 
