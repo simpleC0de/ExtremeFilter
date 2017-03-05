@@ -1,0 +1,13 @@
+main: extremefilter.main.ExtremeFilter
+name: ExtremeFilter
+version: 1.0
+author: GoRoK
+website: GoRoK.xyz
+commands:
+
+  chatclear:
+  mute:
+  unmute:
+  chatlock:
+  chatulock:
+  spy:

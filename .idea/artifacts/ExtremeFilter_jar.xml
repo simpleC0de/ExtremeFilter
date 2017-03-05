@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ExtremeFilter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ExtremeFilter_jar</output-path>
+    <root id="archive" name="ExtremeFilter.jar">
+      <element id="module-output" name="ExtremeFilter" />
+    </root>
+  </artifact>
+</component>
