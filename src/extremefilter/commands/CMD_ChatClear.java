@@ -1,5 +1,6 @@
 package extremefilter.commands;
 
+import extremefilter.main.ExtremeFilter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -16,7 +17,9 @@ public class CMD_ChatClear implements CommandExecutor {
 
         if(!cs.hasPermission("ex.chatclear")){
 
-            cs.sendMessage("§cSorry, no permission!");
+            String message = ExtremeFilter.getInstance().getCustomConfig().getString("Message.NoPermission");
+
+            cs.sendMessage(message);
 
         }
 
@@ -41,7 +44,10 @@ public class CMD_ChatClear implements CommandExecutor {
 
         }
 
-        Bukkit.broadcastMessage("§2[§5ExtremeFilter§2]§5 The chat was cleared by §6" + cs.getName());
+        String message = ExtremeFilter.getInstance().getCustomConfig().getString("Message.ClearedChat");
+        message = message.replace("$player", cs.getName());
+
+        Bukkit.broadcastMessage(message);
 
 
         return true;

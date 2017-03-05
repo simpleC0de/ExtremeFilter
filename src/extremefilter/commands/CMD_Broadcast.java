@@ -16,14 +16,16 @@ public class CMD_Broadcast implements CommandExecutor{
 
         if(!cs.hasPermission("ex.broadcast")){
 
-            cs.sendMessage("§cSorry, no permission!");
+            cs.sendMessage(ExtremeFilter.getInstance().getNoPerm());
             return true;
         }
 
 
         if(!(args.length >= 1)){
 
-            cs.sendMessage("§c/bc <Message>");
+            String message = ExtremeFilter.getInstance().getCustomConfig().getString("Message.CorrectCommand");
+
+            cs.sendMessage(message);
 
             return true;
         }

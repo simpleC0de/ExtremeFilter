@@ -3,7 +3,9 @@ package extremefilter.objects;
 import com.google.common.io.CountingOutputStream;
 import extremefilter.handler.ResolvServer;
 import extremefilter.main.ExtremeFilter;
+import extremefilter.storage.MainStorage;
 import org.apache.commons.io.IOUtils;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
@@ -32,7 +34,7 @@ public class WordFilter {
 
     private String messageCache = "";
 
-    public String testMessage(String message){
+    public String testMessage(String message, Player p){
 
         String split[] = message.split("(?!^)");
 
@@ -106,8 +108,55 @@ public class WordFilter {
             }.runTaskLaterAsynchronously(ExtremeFilter.getInstance(), 0);
 
             doneMessage = messageCache;
+            return doneMessage;
+        }
+
+
+        if(MainStorage.getInstance().slightInsult.contains(p)){
+
+               //Closer checkup
 
         }
+
+        try{
+
+            for(int i = 0; i < split.length; i++){
+
+                String cache;
+                String temp;
+                String clock;
+
+                if(i != 0 && i != split.length - 1){
+
+
+                    for(int o = 0; o < insults.size(); o++){
+
+                        if(split[i] + split[i--] + split[i++].toLowerCase() == insults.get(o)){
+
+                            System.out.println("Insult");
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }catch(Exception ex){
+
+            ex.printStackTrace();
+
+        }
+
+
+
+
+
+
+
+
+
 
         return doneMessage;
 

@@ -5,10 +5,12 @@ import extremefilter.events.ChatListener;
 import extremefilter.events.CommandListener;
 import extremefilter.events.JoinListener;
 import extremefilter.handler.AutoBroadcast;
+import extremefilter.handler.PluginFile;
 import extremefilter.objects.WordFilter;
 import extremefilter.storage.MainStorage;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class ExtremeFilter extends JavaPlugin{
     private static ExtremeFilter instance;
     MySQL sql;
     WordFilter filter;
+
+    private String noPerm = "";
 
     public void onEnable(){
         System.out.println("[ExtremeFilter] Enabling ExtremeFilter...");
@@ -38,8 +42,13 @@ public class ExtremeFilter extends JavaPlugin{
         loadCommands();
         loadEvents();
         loadHandler();
+        noPerm = getCustomConfig().getString("Message.NoPermission");
 
         System.out.println("[ExtremeFilter] Enabled!");
+    }
+
+    public String getNoPerm(){
+        return noPerm;
     }
 
     public void onDisable(){
@@ -51,12 +60,38 @@ public class ExtremeFilter extends JavaPlugin{
 
     }
 
+    PluginFile customConfig;
+
     public void loadConfig(){
 
 
         if(getDataFolder().exists()){
             return;
         }
+
+
+        customConfig = new PluginFile(this, "lang.yml");
+
+        customConfig.set("Message.NoPermission", "§cSorry, no permission!");
+        customConfig.set("Message.ClearedChat", "§5 $player just cleared the chat!");
+        customConfig.set("Message.LockChat", "§cThe chat has been locked by $player");
+        customConfig.set("Message.UnlockChat", "§cThe chat has been unlocked by $player");
+        customConfig.set("Message.Mute", "§cYou just muted $target");
+        customConfig.set("Message.Unmute", "§cYou just unmuted $target");
+        customConfig.set("Message.GotMuted", "§cYou just got muted by $player");
+        customConfig.set("Message.GotUnMuted", "§cYou just got unmuted by $player");
+        customConfig.set("Message.Spy", "§cYoure now spying $target");
+        customConfig.set("Message.SpyExecute", "§c$player just executed $command");
+        customConfig.set("Message.DontuseCaps", "§cHey $player! Stop using so many Caps!");
+        customConfig.set("Message.TooManyWhitespaces", "§cHey $player! You're using too many whitespaces!");
+        customConfig.set("Message.WaitUntilChat", "§cWait $seconds until you can chat again!");
+        customConfig.set("Message.CorrectCommand", "§c$command");
+
+
+
+        //Placeholders: $player, $target, $command, $seconds
+
+
 
         getConfig().set("MySQL.User" , "Username");
         getConfig().set("MySQL.Password", "Password");
@@ -83,6 +118,7 @@ public class ExtremeFilter extends JavaPlugin{
         getConfig().set("General.Messages.Filter.MaxTraffic", 500);
         getConfig().set("General.Messages.Filter.LocalServer.Port", 9892);
         saveConfig();
+        customConfig.save();
 
     }
 
@@ -118,6 +154,10 @@ public class ExtremeFilter extends JavaPlugin{
     }
 
     public WordFilter getFilter(){return filter;}
+
+    public PluginFile getCustomConfig(){
+        return customConfig;
+    }
 
     public static ExtremeFilter getInstance(){
         return instance;

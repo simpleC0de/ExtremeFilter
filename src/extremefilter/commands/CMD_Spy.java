@@ -1,5 +1,6 @@
 package extremefilter.commands;
 
+import extremefilter.main.ExtremeFilter;
 import extremefilter.storage.MainStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -21,7 +22,7 @@ public class CMD_Spy implements CommandExecutor {
              return true;
         }
         if(!cs.hasPermission("ex.spy")){
-            cs.sendMessage("§cSorry, no permission!");
+            cs.sendMessage(ExtremeFilter.getInstance().getNoPerm());
             return true;
         }
 

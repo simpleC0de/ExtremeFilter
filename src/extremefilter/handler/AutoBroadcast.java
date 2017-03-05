@@ -54,7 +54,7 @@ public class AutoBroadcast {
                     }
 
 
-                    Bukkit.broadcastMessage("§5[§2ExtremeFilter§5] §8" + messages.get(counter));
+                    Bukkit.broadcastMessage(messages.get(counter));
 
 
 

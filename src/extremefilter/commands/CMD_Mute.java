@@ -1,5 +1,6 @@
 package extremefilter.commands;
 
+import extremefilter.main.ExtremeFilter;
 import extremefilter.storage.MainStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -17,7 +18,7 @@ public class CMD_Mute implements CommandExecutor {
 
         if(!cs.hasPermission("ex.mute")){
 
-            cs.sendMessage("§cSorry, no permission!");
+            cs.sendMessage(ExtremeFilter.getInstance().getNoPerm());
 
         }
 

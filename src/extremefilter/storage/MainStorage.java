@@ -34,6 +34,7 @@ public class MainStorage {
 
     public boolean broadcast = ExtremeFilter.getInstance().getConfig().getBoolean("General.Broadcast.Active");
 
+    public ArrayList<Player> slightInsult = new ArrayList<>();
 
     public static MainStorage getInstance(){
         return instance;

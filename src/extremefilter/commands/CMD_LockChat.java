@@ -1,5 +1,6 @@
 package extremefilter.commands;
 
+import extremefilter.main.ExtremeFilter;
 import extremefilter.storage.MainStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -15,7 +16,7 @@ public class CMD_LockChat implements CommandExecutor {
 
         if(!cs.hasPermission("ex.lockchat")){
 
-            cs.sendMessage("§cSorry, no permission!");
+            cs.sendMessage(ExtremeFilter.getInstance().getNoPerm());
 
             return true;
         }
