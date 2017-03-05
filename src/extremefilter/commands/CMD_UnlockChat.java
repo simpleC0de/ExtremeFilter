@@ -17,6 +17,7 @@ public class CMD_UnlockChat implements CommandExecutor {
 
             cs.sendMessage("§cSorry, no permission!");
 
+            return true;
         }
 
 

@@ -13,7 +13,7 @@ import sun.applet.Main;
 /**
  * Created by root on 04.03.2017.
  */
-public class onChat implements Listener {
+public class ChatListener implements Listener {
 
     @EventHandler
     public void ChatEvent(AsyncPlayerChatEvent e){
@@ -228,15 +228,7 @@ public class onChat implements Listener {
 
     public void sendToStaff(String message){
 
-        for(Player all : Bukkit.getOnlinePlayers()){
-
-            if(all.hasPermission("ex.staff")){
-
-                all.sendMessage("§2[§cStaff§2]§7" + message);
-
-            }
-
-        }
+        Bukkit.broadcast("§2[§cStaff§2]§7" + message, "ex.staff");
 
     }
 }

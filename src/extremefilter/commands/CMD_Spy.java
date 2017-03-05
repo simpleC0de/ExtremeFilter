@@ -40,6 +40,15 @@ public class CMD_Spy implements CommandExecutor {
             Player p = Bukkit.getPlayer(player);
 
 
+            if(p == null){
+
+                cs.sendMessage(String.format("§cThe players %s isn't online!", args[0]));
+
+                return true;
+
+            }
+
+
 
             if(!MainStorage.getInstance().spiedBy.containsKey(p)){
 

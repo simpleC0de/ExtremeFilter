@@ -29,7 +29,7 @@ public class WordFilter {
 
     }
 
-    public void testMessage(String message){
+    public String testMessage(String message){
 
         String split[] = message.split("(?!^)");
 
@@ -78,7 +78,7 @@ public class WordFilter {
 
         }
 
-
+        return message;
 
     }
 

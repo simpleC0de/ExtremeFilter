@@ -27,25 +27,33 @@ public class CMD_Mute implements CommandExecutor {
             return true;
         }
 
-        if(Bukkit.getPlayer(args[0]).isOnline()){
+        try{
+            if(Bukkit.getPlayer(args[0]).isOnline()){
 
-            if(MainStorage.getInstance().muted.contains(Bukkit.getPlayer(args[0]))){
+                if(MainStorage.getInstance().muted.contains(Bukkit.getPlayer(args[0]))){
 
 
-                cs.sendMessage("§5The Player " + args[0] + " was already muted!");
-                return true;
+                    cs.sendMessage("§5The Player " + args[0] + " was already muted!");
+                    return true;
+
+                }
+
+                MainStorage.getInstance().muted.add(Bukkit.getPlayer(args[0]));
+
+                cs.sendMessage("§cMuted the Player §5" + args[0]);
+
+            }else{
+
+                cs.sendMessage("§cThe Players §5" + args[0] + "§c isn't online!");
 
             }
+        }catch(NullPointerException ex){
 
-            MainStorage.getInstance().muted.add(Bukkit.getPlayer(args[0]));
-
-            cs.sendMessage("§cMuted the Player §5" + args[0]);
-
-        }else{
-
-            cs.sendMessage("§cThe Players §5" + args[0] + "§c isn't online!");
+            cs.sendMessage("§cThe players " + args[0] + " is not online!");
 
         }
+
+
 
 
         return true;

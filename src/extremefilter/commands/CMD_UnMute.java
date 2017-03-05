@@ -25,23 +25,30 @@ public class CMD_UnMute implements CommandExecutor {
             return true;
         }
 
-        if(Bukkit.getPlayer(args[0]).isOnline()){
+
+        try{
+
+            if(Bukkit.getPlayer(args[0]).isOnline()){
 
             if(!MainStorage.getInstance().muted.contains(Bukkit.getPlayer(args[0]))){
 
 
-                cs.sendMessage("§5The Player " + args[0] + " wasn't already muted!");
-                return true;
+                    cs.sendMessage(String.format("§5The Player %s wasn't already muted!", args[0]));
+                    return true;
 
+                }
+
+                MainStorage.getInstance().muted.remove(Bukkit.getPlayer(args[0]));
+
+                cs.sendMessage("§Unmuted the Player §5" + args[0]);
+
+            }else {
+                cs.sendMessage("§cThe Players §5" + args[0] + "§c isn't online!");
             }
 
-            MainStorage.getInstance().muted.remove(Bukkit.getPlayer(args[0]));
+        }catch(NullPointerException ex){
 
-            cs.sendMessage("§Unmuted the Player §5" + args[0]);
-
-        }else{
-
-            cs.sendMessage("§cThe Players §5" + args[0] + "§c isn't online!");
+            cs.sendMessage("§cThe players " + args[0] + " is not online!");
 
         }
 

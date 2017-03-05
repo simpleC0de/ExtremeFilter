@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by root on 04.03.2017.
  */
-public class onJoin implements Listener {
+public class JoinListener implements Listener {
 
     @EventHandler
     public void joinEvent(PlayerJoinEvent e){

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by root on 04.03.2017.
  */
-public class onCommand implements Listener {
+public class CommandListener implements Listener {
 
 
     @EventHandler

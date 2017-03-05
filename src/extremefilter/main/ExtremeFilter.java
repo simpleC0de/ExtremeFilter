@@ -1,9 +1,9 @@
 package extremefilter.main;
 
 import extremefilter.commands.*;
-import extremefilter.events.onChat;
-import extremefilter.events.onCommand;
-import extremefilter.events.onJoin;
+import extremefilter.events.ChatListener;
+import extremefilter.events.CommandListener;
+import extremefilter.events.JoinListener;
 import extremefilter.handler.AutoBroadcast;
 import extremefilter.objects.WordFilter;
 import extremefilter.storage.MainStorage;
@@ -92,9 +92,9 @@ public class ExtremeFilter extends JavaPlugin{
 
     public void loadEvents(){
 
-        getServer().getPluginManager().registerEvents(new onJoin(), this);
-        getServer().getPluginManager().registerEvents(new onChat(), this);
-        getServer().getPluginManager().registerEvents(new onCommand(), this);
+        getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        getServer().getPluginManager().registerEvents(new CommandListener(), this);
 
 
     }
@@ -108,12 +108,15 @@ public class ExtremeFilter extends JavaPlugin{
         getCommand("chatlock").setExecutor(new CMD_LockChat());
         getCommand("chatulock").setExecutor(new CMD_UnlockChat());
         getCommand("spy").setExecutor(new CMD_Spy());
+        getCommand("bc").setExecutor(new CMD_Broadcast());
 
     }
 
     public MySQL getMySQL(){
         return sql;
     }
+
+    public WordFilter getFilter(){return filter;}
 
     public static ExtremeFilter getInstance(){
         return instance;
